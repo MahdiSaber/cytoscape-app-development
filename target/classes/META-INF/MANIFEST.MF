@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: your.org.MyApp
+Bundle-Name: MyApp
+Bundle-Version: 1.0
+Built-By: SoftStar
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1465462240744
+Bundle-Activator: your.org.myapp.internal.CyActivator
+Import-Package: org.cytoscape.service.util;version="[3.3,4)",org.cytos
+ cape.work;version="[3.3,4)",org.osgi.framework;version="[1.5,2)"
+Created-By: Apache Maven Bundle Plugin
+Tool: Bnd-1.15.0
+Build-Jdk: 1.8.0_92
+
