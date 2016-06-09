@@ -9,7 +9,11 @@ import org.cytoscape.session.CyNetworkNaming;
 import org.cytoscape.work.TaskFactory;
 import org.osgi.framework.BundleContext;
 
+<<<<<<< HEAD
 /** .
+=======
+/**
+>>>>>>> github/master
  * {@code CyActivator} is a class that is a starting point for OSGi bundles.
  * 
  * A quick overview of OSGi: The common currency of OSGi is the <i>service</i>.

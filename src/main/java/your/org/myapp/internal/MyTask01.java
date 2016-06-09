@@ -28,41 +28,44 @@ public class MyTask01 extends AbstractTask
 	{
 		CyNetwork newNetwork = networkFactory.createNetwork();
 
-		//newNetwork.getRow(newNetwork).set(CyNetwork.NAME, networkNaming.getSuggestedNetworkTitle("Best Network"));
+		// newNetwork.getRow(newNetwork).set(CyNetwork.NAME,
+		// networkNaming.getSuggestedNetworkTitle("Best Network"));
 		//
-		//Step 3_1:
-		//Mahdi: Pay attotion to the second manner for setting the network name.
-		//This is equal to the line!
-		newNetwork.getDefaultNetworkTable().getRow(newNetwork.getSUID()).set("name", networkNaming.getSuggestedNetworkTitle("Bestest Network"));
+		// Step 3_1:
+		// Mahdi: Pay attotion to the second manner for setting the network
+		// name.
+		// This is equal to the line!
+		newNetwork.getDefaultNetworkTable().getRow(newNetwork.getSUID()).set("name",
+				networkNaming.getSuggestedNetworkTitle("Bestest Network"));
 
 		CyNode node1 = newNetwork.addNode();
 		CyNode node2 = newNetwork.addNode();
 		CyNode node3 = newNetwork.addNode();
 		CyNode node4 = newNetwork.addNode();
-		
-		//Step 3_1_continue (Change the name of the node or nodes):
+
+		// Step 3_1_continue (Change the name of the node or nodes):
+
 		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("name", "Node1");
 		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("name", "Node2");
 		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("name", "Node3");
 		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("name", "Node4");
-		
-		//Step 3_2 (Create two new node columns):
+
+		// Step 3_2 (Create two new node columns):
 		newNetwork.getDefaultNodeTable().createColumn("Hello", String.class, true);
 		newNetwork.getDefaultNodeTable().createColumn("World", Double.class, true);
-		
-		//Step 3_3 (Add data to the new columns):
+
+		// Step 3_3 (Add data to the new columns):
 		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("Hello", "H1");
 		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("World", 10.0);
-		
+
 		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("Hello", "H2");
 		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("World", 20.0);
-		
+
 		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("Hello", "H3");
 		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("World", 30.0);
-		
+
 		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("Hello", "H4");
 		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("World", 40.0);
-		
 
 		// The third parameter is related to directional/non-directional
 		newNetwork.addEdge(node1, node4, false);
