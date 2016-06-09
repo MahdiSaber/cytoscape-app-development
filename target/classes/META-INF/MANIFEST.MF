@@ -4,12 +4,12 @@ Bundle-Name: MyApp
 Bundle-Version: 1.0
 Built-By: SoftStar
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1465472539740
+Bnd-LastModified: 1465484768013
 Bundle-Activator: your.org.myapp.internal.CyActivator
 Import-Package: org.cytoscape.model;version="[3.3,4)",org.cytoscape.se
- rvice.util;version="[3.3,4)",org.cytoscape.view.model;version="[3.3,4
- )",org.cytoscape.work;version="[3.3,4)",org.osgi.framework;version="[
- 1.5,2)"
+ rvice.util;version="[3.3,4)",org.cytoscape.session;version="[3.3,4)",
+ org.cytoscape.work;version="[3.3,4)",org.osgi.framework;version="[1.5
+ ,2)"
 Created-By: Apache Maven Bundle Plugin
 Tool: Bnd-1.15.0
 Build-Jdk: 1.8.0_92

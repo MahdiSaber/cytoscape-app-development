@@ -2,18 +2,14 @@ package your.org.myapp.internal;
 
 import java.util.Properties;
 
-import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.service.util.AbstractCyActivator;
-import org.cytoscape.view.model.CyNetworkViewFactory;
-import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.session.CyNetworkNaming;
 import org.cytoscape.work.TaskFactory;
 import org.osgi.framework.BundleContext;
 
-import sun.font.CreatedFontTracker;
-
-/**
+/** .
  * {@code CyActivator} is a class that is a starting point for OSGi bundles.
  * 
  * A quick overview of OSGi: The common currency of OSGi is the <i>service</i>.
@@ -44,10 +40,11 @@ public class CyActivator extends AbstractCyActivator
 	 * environment. You use {@code BundleContext} to import services or ask OSGi
 	 * about the status of some service.
 	 */
-	// public CyActivator()
-	// {
-	// super();
-	// }
+	public CyActivator()
+	{
+		super();
+	}
+
 	@Override
 	public void start(BundleContext context) throws Exception
 	{
@@ -63,24 +60,24 @@ public class CyActivator extends AbstractCyActivator
 
 		// ********** Step 2 *******************************************
 
-		
 		CyNetworkFactory networkFactory = getService(context, CyNetworkFactory.class);
 		CyNetworkManager networkManager = getService(context, CyNetworkManager.class);
-		
-		CyNetworkViewFactory networkViewFactory = getService(context, CyNetworkViewFactory.class);
-		CyNetworkViewManager networkViewManager = getService(context, CyNetworkViewManager.class);
 
-		
-		MyTaskFactory myTaskFactory = new MyTaskFactory(networkFactory, networkManager, networkViewFactory, networkViewManager);
-		
+		// Mahdi: Creating view with programming is useless in this step!
+		// It will come later in Step 4!
+		// CyNetworkViewFactory networkViewFactory = getService(context,
+		// CyNetworkViewFactory.class);
+		// CyNetworkViewManager networkViewManager = getService(context,
+		// CyNetworkViewManager.class);
+
+		CyNetworkNaming networkNaming = getService(context, CyNetworkNaming.class);
+
+		MyTaskFactory myTaskFactory = new MyTaskFactory(networkFactory, networkManager, networkNaming);
+
 		Properties stepTwoProp = new Properties();
 		stepTwoProp.setProperty("title", "Step2");
-		stepTwoProp.setProperty("preferredMenu", "Apps.Step2");
-		
-		
-		
-		
-				
+		stepTwoProp.setProperty("preferredMenu", "Apps.Steps");
+
 		registerService(context, myTaskFactory, TaskFactory.class, stepTwoProp);
 
 	}
