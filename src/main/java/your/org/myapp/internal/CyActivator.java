@@ -6,14 +6,14 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.session.CyNetworkNaming;
+import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.work.TaskFactory;
 import org.osgi.framework.BundleContext;
 
-/** .
-=======
 /**
->>>>>>> github/master
- * {@code CyActivator} is a class that is a starting point for OSGi bundles.
+ * . ======= /** >>>>>>> github/master {@code CyActivator} is a class that is a
+ * starting point for OSGi bundles.
  * 
  * A quick overview of OSGi: The common currency of OSGi is the <i>service</i>.
  * A service is merely a Java interface, along with objects that implement the
@@ -75,10 +75,19 @@ public class CyActivator extends AbstractCyActivator
 
 		CyNetworkNaming networkNaming = getService(context, CyNetworkNaming.class);
 
-		MyTaskFactory myTaskFactory = new MyTaskFactory(networkFactory, networkManager, networkNaming);
+		// Step 4_1
+		CyNetworkViewFactory viewFactory = getService(context, CyNetworkViewFactory.class);
+		CyNetworkViewManager viewManager = getService(context, CyNetworkViewManager.class);
+		// Step 4_1_End
+
+		MyTaskFactory myTaskFactory = new MyTaskFactory(networkFactory,
+														networkManager,
+														networkNaming,
+														viewFactory,
+														viewManager);
 
 		Properties stepTwoProp = new Properties();
-		stepTwoProp.setProperty("title", "Step2");
+		stepTwoProp.setProperty("title", "Step4");
 		stepTwoProp.setProperty("preferredMenu", "Apps.Steps");
 
 		registerService(context, myTaskFactory, TaskFactory.class, stepTwoProp);

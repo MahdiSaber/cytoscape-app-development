@@ -6,6 +6,9 @@ import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.session.CyNetworkNaming;
+import org.cytoscape.view.model.CyNetworkView;
+import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
 
@@ -14,13 +17,17 @@ public class MyTask01 extends AbstractTask
 	CyNetworkFactory networkFactory;
 	CyNetworkManager networkManager;
 	CyNetworkNaming networkNaming;
+	CyNetworkViewFactory viewFactory;
+	CyNetworkViewManager viewManager;
 
-	public MyTask01(CyNetworkFactory networkFactory, CyNetworkManager networkManager, CyNetworkNaming networkNaming)
+	public MyTask01(CyNetworkFactory networkFactory, CyNetworkManager networkManager, CyNetworkNaming networkNaming,
+			CyNetworkViewFactory viewFactory, CyNetworkViewManager viewManager)
 	{
 		this.networkFactory = networkFactory;
 		this.networkManager = networkManager;
 		this.networkNaming = networkNaming;
-
+		this.viewFactory = viewFactory;
+		this.viewManager = viewManager;
 	}
 
 	@Override
@@ -76,6 +83,15 @@ public class MyTask01 extends AbstractTask
 		newNetwork.addEdge(node2, node4, true);
 
 		networkManager.addNetwork(newNetwork);
+
+		// **************************************
+		// *** The Problem:
+		// *** The correct view is hidden until we do "Clear All Edge Bends"
+		// **************************************
+		// Step 4_1
+		CyNetworkView view01 = viewFactory.createNetworkView(newNetwork);
+		viewManager.addNetworkView(view01);
+		// Step 4_1_End
 
 		boolean destroyNetwork = false;
 		if (destroyNetwork)
