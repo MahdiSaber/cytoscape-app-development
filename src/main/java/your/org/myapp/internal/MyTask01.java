@@ -146,8 +146,16 @@ public class MyTask01 extends AbstractTask
 		// Step 4_1_End
 		// Step 4_2 (Continuous Mapping)
 		ContinuousMapping continuousMapping = (ContinuousMapping) mappingFunctionFactoryContinous.createVisualMappingFunction("World", Double.class, BasicVisualLexicon.NODE_FILL_COLOR);
-		BoundaryRangeValues<Paint> boundaryRangeValues1 = new BoundaryRangeValues<Paint>(Color.RED, Color.YELLOW, Color.BLUE);
+		BoundaryRangeValues<Paint> boundaryRangeValues1 = new BoundaryRangeValues<Paint>(Color.RED, Color.RED, Color.RED);
+		
+		BoundaryRangeValues<Paint> boundaryRangeValues2 = new BoundaryRangeValues<Paint>(Color.BLUE, Color.BLUE, Color.BLUE);
+		
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		// Question:
+		// What is the first parameter of addPoint?
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		continuousMapping.addPoint(10d, boundaryRangeValues1);
+		continuousMapping.addPoint(30d, boundaryRangeValues2);
 		
 		VisualStyle visualStyle_continuous = styleFactory.createVisualStyle("MahdiStyle_Continuous!");
 		visualStyle_continuous.addVisualMappingFunction(continuousMapping);
