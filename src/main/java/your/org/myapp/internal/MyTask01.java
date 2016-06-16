@@ -128,6 +128,9 @@ public class MyTask01 extends AbstractTask
 		VisualStyle visualStyle = styleFactory.createVisualStyle("MahdiStyle!");
 		visualStyle.addVisualMappingFunction(pMapping);
 		
+		//add my style to CytoScape Style library
+		mappingManager.addVisualStyle(visualStyle);
+		
 		
 		visualStyle.apply(view01);
 		view01.updateView();
