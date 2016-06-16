@@ -8,6 +8,9 @@ import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.session.CyNetworkNaming;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
+import org.cytoscape.view.vizmap.VisualMappingManager;
+import org.cytoscape.view.vizmap.VisualStyleFactory;
 import org.cytoscape.work.TaskFactory;
 import org.osgi.framework.BundleContext;
 
@@ -78,13 +81,20 @@ public class CyActivator extends AbstractCyActivator
 		// Step 4_1
 		CyNetworkViewFactory viewFactory = getService(context, CyNetworkViewFactory.class);
 		CyNetworkViewManager viewManager = getService(context, CyNetworkViewManager.class);
+		VisualMappingFunctionFactory mappingFunctionFactory = getService(context,VisualMappingFunctionFactory.class, "(mapping.type=passthrough)");
+		VisualStyleFactory styleFactory = getService(context, VisualStyleFactory.class);
+		VisualMappingManager mappingManager = getService(context, VisualMappingManager.class);
+		
 		// Step 4_1_End
 
 		MyTaskFactory myTaskFactory = new MyTaskFactory(networkFactory,
 														networkManager,
 														networkNaming,
 														viewFactory,
-														viewManager);
+														viewManager,
+														mappingFunctionFactory,
+														styleFactory,
+														mappingManager);
 
 		Properties stepTwoProp = new Properties();
 		stepTwoProp.setProperty("title", "Step4");
