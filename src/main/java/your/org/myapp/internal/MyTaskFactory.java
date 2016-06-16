@@ -21,6 +21,7 @@ public class MyTaskFactory extends AbstractTaskFactory
 	VisualMappingFunctionFactory mappingFunctionFactory;
 	VisualStyleFactory styleFactory;
 	VisualMappingManager mappingManager;
+	VisualMappingFunctionFactory mappingFunctionFactoryContinous;
 	
 	public MyTaskFactory(CyNetworkFactory networkFactory,
 			CyNetworkManager networkManager,
@@ -29,7 +30,8 @@ public class MyTaskFactory extends AbstractTaskFactory
 			CyNetworkViewManager viewManager,
 			VisualMappingFunctionFactory mappingFunctionFactory,
 			VisualStyleFactory styleFactory,
-			VisualMappingManager mappingManager)
+			VisualMappingManager mappingManager,
+			VisualMappingFunctionFactory mappingFunctionFactoryContinous)
 	{
 		this.networkFactory = networkFactory;
 		this.networkManager = networkManager;
@@ -39,15 +41,13 @@ public class MyTaskFactory extends AbstractTaskFactory
 		this.mappingFunctionFactory = mappingFunctionFactory;
 		this.styleFactory = styleFactory;
 		this.mappingManager = mappingManager;
-		
-
+		this.mappingFunctionFactoryContinous = mappingFunctionFactoryContinous;
 	}
 
 	@Override
 	public TaskIterator createTaskIterator()
 	{
-		return new TaskIterator(new MyTask01(networkFactory, networkManager, networkNaming, viewFactory,viewManager,mappingFunctionFactory,styleFactory, mappingManager));
-
+		return new TaskIterator(new MyTask01(networkFactory, networkManager, networkNaming, viewFactory,viewManager,mappingFunctionFactory,styleFactory, mappingManager, mappingFunctionFactoryContinous));
 	}
 
 }

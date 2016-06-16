@@ -8,6 +8,7 @@ import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.session.CyNetworkNaming;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.vizmap.VisualMappingFunction;
 import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyleFactory;
@@ -84,8 +85,10 @@ public class CyActivator extends AbstractCyActivator
 		VisualMappingFunctionFactory mappingFunctionFactory = getService(context,VisualMappingFunctionFactory.class, "(mapping.type=passthrough)");
 		VisualStyleFactory styleFactory = getService(context, VisualStyleFactory.class);
 		VisualMappingManager mappingManager = getService(context, VisualMappingManager.class);
-		
 		// Step 4_1_End
+		
+		//Step 4_2 (Continuous Mapping)
+		VisualMappingFunctionFactory mappingFunctionFactoryContinous = getService(context,VisualMappingFunctionFactory.class, "(mapping.type=continuous)");
 
 		MyTaskFactory myTaskFactory = new MyTaskFactory(networkFactory,
 														networkManager,
@@ -94,7 +97,10 @@ public class CyActivator extends AbstractCyActivator
 														viewManager,
 														mappingFunctionFactory,
 														styleFactory,
-														mappingManager);
+														mappingManager,
+														mappingFunctionFactoryContinous);
+		
+		//Step 4_2 (Continuous Mapping) _ END
 
 		Properties stepTwoProp = new Properties();
 		stepTwoProp.setProperty("title", "Step4");

@@ -1,5 +1,7 @@
 package your.org.myapp.internal;
 
+
+
 import org.cytoscape.model.CyColumn;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
@@ -20,9 +22,14 @@ import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.view.vizmap.VisualStyleFactory;
+import org.cytoscape.view.vizmap.mappings.BoundaryRangeValues;
+import org.cytoscape.view.vizmap.mappings.ContinuousMapping;
 import org.cytoscape.view.vizmap.mappings.PassthroughMapping;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
+
+import java.awt.Paint;
+import java.awt.Color;
 
 public class MyTask01 extends AbstractTask
 {
@@ -34,11 +41,13 @@ public class MyTask01 extends AbstractTask
 	VisualMappingFunctionFactory mappingFunctionFactory;
 	VisualStyleFactory styleFactory;
 	VisualMappingManager mappingManager;
+	
+	VisualMappingFunctionFactory mappingFunctionFactoryContinous;
 
 	public MyTask01(CyNetworkFactory networkFactory, CyNetworkManager networkManager, CyNetworkNaming networkNaming,
 			CyNetworkViewFactory viewFactory, CyNetworkViewManager viewManager,
 			VisualMappingFunctionFactory mappingFunctionFactory, VisualStyleFactory styleFactory,
-			VisualMappingManager mappingManager)
+			VisualMappingManager mappingManager, VisualMappingFunctionFactory mappingFunctionFactoryContinous)
 	{
 		this.networkFactory = networkFactory;
 		this.networkManager = networkManager;
@@ -48,6 +57,7 @@ public class MyTask01 extends AbstractTask
 		this.mappingFunctionFactory = mappingFunctionFactory;
 		this.styleFactory = styleFactory;
 		this.mappingManager = mappingManager;
+		this.mappingFunctionFactoryContinous = mappingFunctionFactoryContinous;
 	}
 
 	@Override
@@ -109,7 +119,6 @@ public class MyTask01 extends AbstractTask
 		// *** The correct view is hidden until we do "Clear All Edge Bends"
 		// **************************************
 		// Step 4_1
-		// newNetwork.
 		CyNetworkView view01 = viewFactory.createNetworkView(newNetwork);
 
 		View<CyEdge> edge12_view = view01.getEdgeView(edge12);
@@ -130,16 +139,24 @@ public class MyTask01 extends AbstractTask
 		
 		//add my style to CytoScape Style library
 		mappingManager.addVisualStyle(visualStyle);
-		
-		
 		visualStyle.apply(view01);
 		view01.updateView();
-		// view01.
 		viewManager.addNetworkView(view01);
 
-		// edge12_view.setVisualProperty(DoubleVisualProperty, value);
-
 		// Step 4_1_End
+		// Step 4_2 (Continuous Mapping)
+		ContinuousMapping continuousMapping = (ContinuousMapping) mappingFunctionFactoryContinous.createVisualMappingFunction("World", Double.class, BasicVisualLexicon.NODE_FILL_COLOR);
+		BoundaryRangeValues<Paint> boundaryRangeValues1 = new BoundaryRangeValues<Paint>(Color.RED, Color.YELLOW, Color.BLUE);
+		continuousMapping.addPoint(10d, boundaryRangeValues1);
+		
+		VisualStyle visualStyle_continuous = styleFactory.createVisualStyle("MahdiStyle_Continuous!");
+		visualStyle_continuous.addVisualMappingFunction(continuousMapping);
+		
+		mappingManager.addVisualStyle(visualStyle_continuous);
+		
+		
+		
+		// Step 4_2 (Continuous Mapping)_End
 
 		boolean destroyNetwork = false;
 		if (destroyNetwork)
