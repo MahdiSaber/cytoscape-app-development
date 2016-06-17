@@ -31,8 +31,11 @@ import org.cytoscape.work.TaskMonitor;
 import java.awt.Paint;
 import java.awt.Color;
 
+import org.cytoscape.work.Tunable;
 public class MyTask01 extends AbstractTask
 {
+	
+	@Tunable(description="This is my tunable description for my task",groups={"mahdi2", "salamcmd2"})
 	CyNetworkFactory networkFactory;
 	CyNetworkManager networkManager;
 	CyNetworkNaming networkNaming;
@@ -123,14 +126,32 @@ public class MyTask01 extends AbstractTask
 
 		View<CyEdge> edge12_view = view01.getEdgeView(edge12);
 		View<CyNode> node1_view = view01.getNodeView(node1);
+		View<CyNode> node2_view = view01.getNodeView(node2);
+		View<CyNode> node3_view = view01.getNodeView(node3);
+		View<CyNode> node4_view = view01.getNodeView(node4);
+		
 
 		node1_view.setVisualProperty(BasicVisualLexicon.NODE_FILL_COLOR, java.awt.Color.PINK);
 		node1_view.setVisualProperty(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.DIAMOND);
 
-		node1_view.setVisualProperty(BasicVisualLexicon.NODE_LABEL, "Mahdi");
-		node1_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 10);
-		node1_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 50);
+		//How to set a label for a specific node 
+		//node1_view.setVisualProperty(BasicVisualLexicon.NODE_LABEL, "Mahdi");
 		
+		//Change the X and Y of my four nodes ...
+		
+		node1_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 0);
+		node1_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 0);
+		
+		node2_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 0);
+		node2_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 200);
+		
+		node3_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 200);
+		node3_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 0);
+		
+		node4_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 200);
+		node4_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 200);
+		
+		// Trying Passthrough Mapping
 		PassthroughMapping pMapping = (PassthroughMapping)
 		mappingFunctionFactory.createVisualMappingFunction("name", String.class, BasicVisualLexicon.NODE_LABEL);
 		
@@ -146,19 +167,20 @@ public class MyTask01 extends AbstractTask
 		// Step 4_1_End
 		// Step 4_2 (Continuous Mapping)
 		ContinuousMapping continuousMapping = (ContinuousMapping) mappingFunctionFactoryContinous.createVisualMappingFunction("World", Double.class, BasicVisualLexicon.NODE_FILL_COLOR);
-		BoundaryRangeValues<Paint> boundaryRangeValues1 = new BoundaryRangeValues<Paint>(Color.RED, Color.RED, Color.RED);
-		
-		BoundaryRangeValues<Paint> boundaryRangeValues2 = new BoundaryRangeValues<Paint>(Color.BLUE, Color.BLUE, Color.BLUE);
+	
+		BoundaryRangeValues<Paint> boundaryRangeValues1 = new BoundaryRangeValues<Paint>(Color.YELLOW, Color.ORANGE, Color.RED);
+		BoundaryRangeValues<Paint> boundaryRangeValues2 = new BoundaryRangeValues<Paint>(Color.BLACK, Color.GREEN, Color.BLUE);
 		
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		// Question:
 		// What is the first parameter of addPoint?
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		continuousMapping.addPoint(10d, boundaryRangeValues1);
-		continuousMapping.addPoint(30d, boundaryRangeValues2);
+		continuousMapping.addPoint(40d, boundaryRangeValues2);
 		
 		VisualStyle visualStyle_continuous = styleFactory.createVisualStyle("MahdiStyle_Continuous!");
 		visualStyle_continuous.addVisualMappingFunction(continuousMapping);
+		visualStyle_continuous.addVisualMappingFunction(pMapping);
 		
 		mappingManager.addVisualStyle(visualStyle_continuous);
 		

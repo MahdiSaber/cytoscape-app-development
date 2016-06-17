@@ -15,6 +15,11 @@ import org.cytoscape.view.vizmap.VisualStyleFactory;
 import org.cytoscape.work.TaskFactory;
 import org.osgi.framework.BundleContext;
 
+
+import static org.cytoscape.work.ServiceProperties.COMMAND_NAMESPACE;
+import static org.cytoscape.work.ServiceProperties.COMMAND;
+import static org.cytoscape.work.ServiceProperties.COMMAND_DESCRIPTION;
+
 /**
  * . ======= /** >>>>>>> github/master {@code CyActivator} is a class that is a
  * starting point for OSGi bundles.
@@ -105,6 +110,12 @@ public class CyActivator extends AbstractCyActivator
 		Properties stepTwoProp = new Properties();
 		stepTwoProp.setProperty("title", "Step4");
 		stepTwoProp.setProperty("preferredMenu", "Apps.Steps");
+		
+		//Step 5_1
+		stepTwoProp.setProperty(COMMAND_NAMESPACE, "mahdi");
+		stepTwoProp.setProperty(COMMAND_DESCRIPTION, "This is my command description.");
+		stepTwoProp.setProperty(COMMAND, "salamcmd");
+		//Step 5_1 End
 
 		registerService(context, myTaskFactory, TaskFactory.class, stepTwoProp);
 
