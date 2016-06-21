@@ -2,7 +2,6 @@ package your.org.myapp.internal;
 
 
 
-import org.cytoscape.model.CyColumn;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
@@ -13,26 +12,16 @@ import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.model.View;
-import org.cytoscape.view.model.VisualProperty;
 import org.cytoscape.view.presentation.property.BasicVisualLexicon;
-import org.cytoscape.view.presentation.property.DoubleVisualProperty;
 import org.cytoscape.view.presentation.property.NodeShapeVisualProperty;
-import org.cytoscape.view.presentation.property.VisualPropertyUtil;
 import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.view.vizmap.VisualStyleFactory;
-import org.cytoscape.view.vizmap.mappings.BoundaryRangeValues;
-import org.cytoscape.view.vizmap.mappings.ContinuousMapping;
-import org.cytoscape.view.vizmap.mappings.PassthroughMapping;
 import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
-
-import java.awt.Paint;
-import java.awt.Color;
-
 import org.cytoscape.work.Tunable;
-public class MyTask01 extends AbstractTask
+public class MyTask02 extends AbstractTask
 {
 	
 	@Tunable(description="This is my tunable description for my task",groups={"mahdi2", "salamcmd2"})
@@ -47,7 +36,7 @@ public class MyTask01 extends AbstractTask
 	
 	VisualMappingFunctionFactory mappingFunctionFactoryContinous;
 
-	public MyTask01(CyNetworkFactory networkFactory, CyNetworkManager networkManager, CyNetworkNaming networkNaming,
+	public MyTask02(CyNetworkFactory networkFactory, CyNetworkManager networkManager, CyNetworkNaming networkNaming,
 			CyNetworkViewFactory viewFactory, CyNetworkViewManager viewManager,
 			VisualMappingFunctionFactory mappingFunctionFactory, VisualStyleFactory styleFactory,
 			VisualMappingManager mappingManager, VisualMappingFunctionFactory mappingFunctionFactoryContinous)
@@ -86,27 +75,27 @@ public class MyTask01 extends AbstractTask
 
 		// Step 3_1_continue (Change the name of the node or nodes):
 
-		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("name", "Node1");
-		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("name", "Node2");
-		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("name", "Node3");
-		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("name", "Node4");
+		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("name", "Nd1");
+		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("name", "Nd2");
+		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("name", "Nd3");
+		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("name", "Nd4");
 
 		// Step 3_2 (Create two new node columns):
 		newNetwork.getDefaultNodeTable().createColumn("Hello", String.class, true);
 		newNetwork.getDefaultNodeTable().createColumn("World", Double.class, true);
 
 		// Step 3_3 (Add data to the new columns):
-		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("Hello", "H1");
-		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("World", 10.0);
+		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("Hello", "N1");
+		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("World", 60.0);
 
-		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("Hello", "H2");
-		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("World", 20.0);
+		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("Hello", "N2");
+		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("World", 70.0);
 
-		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("Hello", "H3");
-		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("World", 30.0);
+		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("Hello", "N3");
+		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("World", 80.0);
 
-		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("Hello", "H4");
-		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("World", 40.0);
+		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("Hello", "N4");
+		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("World", 90.0);
 
 		// The third parameter is related to directional/non-directional
 		CyEdge edge14 = newNetwork.addEdge(node1, node4, false);
@@ -116,12 +105,8 @@ public class MyTask01 extends AbstractTask
 		CyEdge edge32 = newNetwork.addEdge(node3, node2, true);
 		CyEdge edge24 = newNetwork.addEdge(node2, node4, true);
 
-		networkManager.addNetwork(newNetwork);
+		
 
-		// **************************************
-		// *** The Problem:
-		// *** The correct view is hidden until we do "Clear All Edge Bends"
-		// **************************************
 		// Step 4_1
 		CyNetworkView view01 = viewFactory.createNetworkView(newNetwork);
 
@@ -132,8 +117,7 @@ public class MyTask01 extends AbstractTask
 		View<CyNode> node4_view = view01.getNodeView(node4);
 		
 
-		node1_view.setVisualProperty(BasicVisualLexicon.NODE_FILL_COLOR, java.awt.Color.PINK);
-		node1_view.setVisualProperty(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.DIAMOND);
+		
 
 		//How to set a label for a specific node 
 		//node1_view.setVisualProperty(BasicVisualLexicon.NODE_LABEL, "Mahdi");
@@ -142,9 +126,11 @@ public class MyTask01 extends AbstractTask
 		
 		node1_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 0);
 		node1_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 0);
+		node1_view.setVisualProperty(BasicVisualLexicon.NODE_FILL_COLOR, java.awt.Color.LIGHT_GRAY);
+		node1_view.setVisualProperty(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.TRIANGLE);
 		
 		node2_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 0);
-		node2_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 200);
+		node2_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 250);
 		
 		node3_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 200);
 		node3_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 0);
@@ -152,38 +138,46 @@ public class MyTask01 extends AbstractTask
 		node4_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 200);
 		node4_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 200);
 		
-		// Trying Passthrough Mapping
-		PassthroughMapping pMapping = (PassthroughMapping)
-		mappingFunctionFactory.createVisualMappingFunction("name", String.class, BasicVisualLexicon.NODE_LABEL);
+		networkManager.addNetwork(newNetwork);
 		
-		VisualStyle visualStyle = styleFactory.createVisualStyle("MahdiStyle!");
-		visualStyle.addVisualMappingFunction(pMapping);
+		// Trying Passthrough Mapping
+		//PassthroughMapping pMapping = (PassthroughMapping)
+		//mappingFunctionFactory.createVisualMappingFunction("name", String.class, BasicVisualLexicon.NODE_LABEL);
+		
+		//VisualStyle visualStyle = styleFactory.createVisualStyle("MahdiStyle!");
+		//visualStyle.addVisualMappingFunction(pMapping);
 		
 		//add my style to CytoScape Style library
-		mappingManager.addVisualStyle(visualStyle);
-		visualStyle.apply(view01);
+		//mappingManager.addVisualStyle(visualStyle);
+		//visualStyle.apply(view01);
+		
+		//Important Note:
+		//We don't need to apply the default visual style here!
+		//We have created our manual view for the network!
 		view01.updateView();
 		viewManager.addNetworkView(view01);
+		//mappingManager.addVisualStyle(visualStyle);
+		//viewManager
 
 		// Step 4_1_End
 		// Step 4_2 (Continuous Mapping)
-		ContinuousMapping continuousMapping = (ContinuousMapping) mappingFunctionFactoryContinous.createVisualMappingFunction("World", Double.class, BasicVisualLexicon.NODE_FILL_COLOR);
-	
-		BoundaryRangeValues<Paint> boundaryRangeValues1 = new BoundaryRangeValues<Paint>(Color.YELLOW, Color.ORANGE, Color.RED);
-		BoundaryRangeValues<Paint> boundaryRangeValues2 = new BoundaryRangeValues<Paint>(Color.BLACK, Color.GREEN, Color.BLUE);
-		
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// Question:
-		// What is the first parameter of addPoint?
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		continuousMapping.addPoint(10d, boundaryRangeValues1);
-		continuousMapping.addPoint(40d, boundaryRangeValues2);
-		
-		VisualStyle visualStyle_continuous = styleFactory.createVisualStyle("MahdiStyle_Continuous!");
-		visualStyle_continuous.addVisualMappingFunction(continuousMapping);
-		visualStyle_continuous.addVisualMappingFunction(pMapping);
-		
-		mappingManager.addVisualStyle(visualStyle_continuous);
+//		ContinuousMapping continuousMapping = (ContinuousMapping) mappingFunctionFactoryContinous.createVisualMappingFunction("World", Double.class, BasicVisualLexicon.NODE_FILL_COLOR);
+//	
+//		BoundaryRangeValues<Paint> boundaryRangeValues1 = new BoundaryRangeValues<Paint>(Color.YELLOW, Color.ORANGE, Color.RED);
+//		BoundaryRangeValues<Paint> boundaryRangeValues2 = new BoundaryRangeValues<Paint>(Color.BLACK, Color.GREEN, Color.BLUE);
+//		
+//		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		// Question:
+//		// What is the first parameter of addPoint?
+//		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		continuousMapping.addPoint(10d, boundaryRangeValues1);
+//		continuousMapping.addPoint(40d, boundaryRangeValues2);
+//		
+//		VisualStyle visualStyle_continuous = styleFactory.createVisualStyle("MahdiStyle_Continuous!");
+//		visualStyle_continuous.addVisualMappingFunction(continuousMapping);
+//		visualStyle_continuous.addVisualMappingFunction(pMapping);
+//		
+//		mappingManager.addVisualStyle(visualStyle_continuous);
 		
 		
 		

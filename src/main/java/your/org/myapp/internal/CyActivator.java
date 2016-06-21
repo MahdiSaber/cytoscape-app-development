@@ -111,13 +111,36 @@ public class CyActivator extends AbstractCyActivator
 		stepTwoProp.setProperty("title", "Step4");
 		stepTwoProp.setProperty("preferredMenu", "Apps.Steps");
 		
-		//Step 5_1
 		stepTwoProp.setProperty(COMMAND_NAMESPACE, "mahdi");
 		stepTwoProp.setProperty(COMMAND_DESCRIPTION, "This is my command description.");
 		stepTwoProp.setProperty(COMMAND, "salamcmd");
+		
+		registerService(context, myTaskFactory, TaskFactory.class, stepTwoProp);
+		
+		//Step 5_1
+
+		Properties stepFiveProp = new Properties();
+		stepFiveProp.setProperty("title", "Step5 - Test Tunables");
+		stepFiveProp.setProperty("preferredMenu", "Apps.Steps");
+		
+		MyTaskFactory02 myTaskFactory02 = new MyTaskFactory02(networkFactory,
+															  networkManager,
+															  networkNaming,
+															  viewFactory,
+															  viewManager,
+															  mappingFunctionFactory,
+															  styleFactory,
+															  mappingManager,
+															  mappingFunctionFactoryContinous);
+		
+		stepFiveProp.setProperty(COMMAND_NAMESPACE, "mahdi");
+		stepFiveProp.setProperty(COMMAND_DESCRIPTION, "This is my command description for step 5 command.");
+		stepFiveProp.setProperty(COMMAND, "step5cmd");
+		registerService(context, myTaskFactory02, TaskFactory.class, stepFiveProp);
+		
 		//Step 5_1 End
 
-		registerService(context, myTaskFactory, TaskFactory.class, stepTwoProp);
+		
 
 	}
 }
