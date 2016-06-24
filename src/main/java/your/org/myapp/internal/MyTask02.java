@@ -2,11 +2,19 @@ package your.org.myapp.internal;
 
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyEdge;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.CyNode;
+import org.cytoscape.model.subnetwork.CyRootNetwork;
+import org.cytoscape.model.subnetwork.CySubNetwork;
+import org.cytoscape.service.util.internal.CyActivator;
 import org.cytoscape.session.CyNetworkNaming;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
@@ -55,133 +63,85 @@ public class MyTask02 extends AbstractTask
 	@Override
 	public void run(TaskMonitor arg0) throws Exception
 	{
+		CySubNetwork newNetwork = (CySubNetwork)networkManager.getNetwork(52);
+		System.out.println(newNetwork.getSUID());
+		CyRootNetwork rootNetwork = newNetwork.getRootNetwork();
+		System.out.println("This is the root network SUID: " + rootNetwork.getSUID());
 		
-		CyNetwork newNetwork = networkFactory.createNetwork();
-
-		// newNetwork.getRow(newNetwork).set(CyNetwork.NAME,
-		// networkNaming.getSuggestedNetworkTitle("Best Network"));
-		//
-		// Step 3_1:
-		// Mahdi: Pay attotion to the second manner for setting the network
-		// name.
-		// This is equal to the line!
-		newNetwork.getDefaultNetworkTable().getRow(newNetwork.getSUID()).set("name",
-				networkNaming.getSuggestedNetworkTitle("Bestest Network"));
-
-		CyNode node1 = newNetwork.addNode();
-		CyNode node2 = newNetwork.addNode();
-		CyNode node3 = newNetwork.addNode();
-		CyNode node4 = newNetwork.addNode();
-
-		// Step 3_1_continue (Change the name of the node or nodes):
-
-		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("name", "Nd1");
-		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("name", "Nd2");
-		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("name", "Nd3");
-		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("name", "Nd4");
-
-		// Step 3_2 (Create two new node columns):
-		newNetwork.getDefaultNodeTable().createColumn("Hello", String.class, true);
-		newNetwork.getDefaultNodeTable().createColumn("World", Double.class, true);
-
-		// Step 3_3 (Add data to the new columns):
-		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("Hello", "N1");
-		newNetwork.getDefaultNodeTable().getRow(node1.getSUID()).set("World", 60.0);
-
-		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("Hello", "N2");
-		newNetwork.getDefaultNodeTable().getRow(node2.getSUID()).set("World", 70.0);
-
-		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("Hello", "N3");
-		newNetwork.getDefaultNodeTable().getRow(node3.getSUID()).set("World", 80.0);
-
-		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("Hello", "N4");
-		newNetwork.getDefaultNodeTable().getRow(node4.getSUID()).set("World", 90.0);
-
-		// The third parameter is related to directional/non-directional
-		CyEdge edge14 = newNetwork.addEdge(node1, node4, false);
-		// Question: why are they not shown in a directed manner?
-		CyEdge edge12 = newNetwork.addEdge(node1, node2, true);
-		CyEdge edge23 = newNetwork.addEdge(node2, node3, true);
-		CyEdge edge32 = newNetwork.addEdge(node3, node2, true);
-		CyEdge edge24 = newNetwork.addEdge(node2, node4, true);
-
+		CySubNetwork subNet2 = (CySubNetwork)networkManager.getNetwork(82);
+		System.out.println("This is the second root network SUID: " + subNet2.getRootNetwork().getSUID());
 		
-
-		// Step 4_1
-		CyNetworkView view01 = viewFactory.createNetworkView(newNetwork);
-
-		View<CyEdge> edge12_view = view01.getEdgeView(edge12);
-		View<CyNode> node1_view = view01.getNodeView(node1);
-		View<CyNode> node2_view = view01.getNodeView(node2);
-		View<CyNode> node3_view = view01.getNodeView(node3);
-		View<CyNode> node4_view = view01.getNodeView(node4);
+		CySubNetwork subNet3 = (CySubNetwork)networkManager.getNetwork(96);
+		System.out.println("This is the third root network SUID: " + subNet3.getRootNetwork().getSUID());
 		
-
+		CySubNetwork subNet4 = (CySubNetwork)networkManager.getNetwork(130);
+		System.out.println("This is the fourth root network SUID: " + subNet4.getRootNetwork().getSUID());
 		
-
-		//How to set a label for a specific node 
-		//node1_view.setVisualProperty(BasicVisualLexicon.NODE_LABEL, "Mahdi");
+		CyRootNetwork rootNet1 = (CyRootNetwork)networkManager.getNetwork(36);
+		if (rootNet1 == newNetwork)
+		{
+			System.out.println("Har 2 Yeki hastand");
+		}
+		else
+		{
+			System.out.println("They are different!");
+		}
 		
-		//Change the X and Y of my four nodes ...
 		
-		node1_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 0);
-		node1_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 0);
-		node1_view.setVisualProperty(BasicVisualLexicon.NODE_FILL_COLOR, java.awt.Color.LIGHT_GRAY);
-		node1_view.setVisualProperty(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.TRIANGLE);
+		CyNode node6 = networkManager.getNetwork(96).getNode(142);
+		if(node6 == null)
+		{
+			System.out.println("node 6 is null!");
+		}
+		else
+		{
+			System.out.println("node 6 SUID is "+node6.getSUID());
+		}
+		int nodeCount = networkManager.getNetwork(96).getNodeCount();
+		System.out.println("Node count net 96 is :" + nodeCount);
 		
-		node2_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 0);
-		node2_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 250);
+//		for (CyNode node : networkManager.getNetwork(96))
 		
-		node3_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 200);
-		node3_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 0);
-		
-		node4_view.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 200);
-		node4_view.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 200);
-		
-		networkManager.addNetwork(newNetwork);
-		
-		// Trying Passthrough Mapping
-		//PassthroughMapping pMapping = (PassthroughMapping)
-		//mappingFunctionFactory.createVisualMappingFunction("name", String.class, BasicVisualLexicon.NODE_LABEL);
-		
-		//VisualStyle visualStyle = styleFactory.createVisualStyle("MahdiStyle!");
-		//visualStyle.addVisualMappingFunction(pMapping);
-		
-		//add my style to CytoScape Style library
-		//mappingManager.addVisualStyle(visualStyle);
-		//visualStyle.apply(view01);
-		
-		//Important Note:
-		//We don't need to apply the default visual style here!
-		//We have created our manual view for the network!
-		view01.updateView();
-		viewManager.addNetworkView(view01);
-		//mappingManager.addVisualStyle(visualStyle);
-		//viewManager
-
-		// Step 4_1_End
-		// Step 4_2 (Continuous Mapping)
-//		ContinuousMapping continuousMapping = (ContinuousMapping) mappingFunctionFactoryContinous.createVisualMappingFunction("World", Double.class, BasicVisualLexicon.NODE_FILL_COLOR);
-//	
-//		BoundaryRangeValues<Paint> boundaryRangeValues1 = new BoundaryRangeValues<Paint>(Color.YELLOW, Color.ORANGE, Color.RED);
-//		BoundaryRangeValues<Paint> boundaryRangeValues2 = new BoundaryRangeValues<Paint>(Color.BLACK, Color.GREEN, Color.BLUE);
+		if (((CySubNetwork)networkManager.getNetwork(96)).getRootNetwork().containsNode(node6))
+		{
+			System.out.println("Root network has this node");
+		}
+		if (networkManager.getNetwork(52).containsNode(node6))
+		{
+			System.out.println("network 52 has this node");
+		}
 //		
-//		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		// Question:
-//		// What is the first parameter of addPoint?
-//		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		continuousMapping.addPoint(10d, boundaryRangeValues1);
-//		continuousMapping.addPoint(40d, boundaryRangeValues2);
-//		
-//		VisualStyle visualStyle_continuous = styleFactory.createVisualStyle("MahdiStyle_Continuous!");
-//		visualStyle_continuous.addVisualMappingFunction(continuousMapping);
-//		visualStyle_continuous.addVisualMappingFunction(pMapping);
-//		
-//		mappingManager.addVisualStyle(visualStyle_continuous);
+		if (networkManager.getNetwork(96).containsNode(node6))
+		{
+			System.out.println("network 96 has this node");
+		}
+		
+		System.out.println("These are all the nodes in root net:");
+//		System.out.println(rootNetwork.);
+		for(CyNode cyNode : rootNetwork.getNodeList())
+		{
+			System.out.println(cyNode.getSUID());
+		}
 		
 		
 		
-		// Step 4_2 (Continuous Mapping)_End
+		Object test1 = networkManager.getNetwork(36);
+		System.out.println(test1 == null); //result = null
+		
+		Object test2 = ((CySubNetwork)networkManager.getNetwork(96)).getRootNetwork();
+		System.out.println(test2 == null); //result is not null!
+		
+		System.out.println(rootNetwork.getBaseNetwork().getSUID());
+		
+		
+		//System.out.println(networkManager.getNetwork(36).getSUID());
+		
+		
+		//newNetwork.getRow(newNetwork).set(CyNetwork.NAME, "This is my newNetwork");
+	
+		
+		
+		//networkManager.addNetwork(newNetwork);
 
 		boolean destroyNetwork = false;
 		if (destroyNetwork)

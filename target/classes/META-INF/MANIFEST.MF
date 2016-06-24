@@ -4,9 +4,11 @@ Bundle-Name: MyApp
 Bundle-Version: 1.0
 Built-By: SoftStar
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1466526380212
+Bnd-LastModified: 1466784246687
 Bundle-Activator: your.org.myapp.internal.CyActivator
-Import-Package: org.cytoscape.model;version="[3.3,4)",org.cytoscape.se
+Import-Package: org.cytoscape.application;version="[3.3,4)",org.cytosc
+ ape.model;version="[3.3,4)",org.cytoscape.model.events;version="[3.3,
+ 4)",org.cytoscape.model.subnetwork;version="[3.3,4)",org.cytoscape.se
  rvice.util;version="[3.3,4)",org.cytoscape.session;version="[3.3,4)",
  org.cytoscape.view.model;version="[3.3,4)",org.cytoscape.view.present
  ation.property;version="[3.3,4)",org.cytoscape.view.presentation.prop

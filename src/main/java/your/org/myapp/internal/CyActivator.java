@@ -2,12 +2,17 @@ package your.org.myapp.internal;
 
 import java.util.Properties;
 
+import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
+import org.cytoscape.model.CyNetworkTableManager;
+import org.cytoscape.model.events.AddedNodesListener;
+import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.session.CyNetworkNaming;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.model.events.NetworkViewAddedListener;
 import org.cytoscape.view.vizmap.VisualMappingFunction;
 import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
 import org.cytoscape.view.vizmap.VisualMappingManager;
@@ -74,6 +79,10 @@ public class CyActivator extends AbstractCyActivator
 
 		CyNetworkFactory networkFactory = getService(context, CyNetworkFactory.class);
 		CyNetworkManager networkManager = getService(context, CyNetworkManager.class);
+		CyApplicationManager applicationManager =  getService(context, CyApplicationManager.class);
+		//applicationManager.
+		//CyNetworkTableManager tableManager = getService(context, CyNetworkTableManager.class);
+		//tableManager.
 
 		// Mahdi: Creating view with programming is useless in this step!
 		// It will come later in Step 4!
@@ -138,8 +147,16 @@ public class CyActivator extends AbstractCyActivator
 		stepFiveProp.setProperty(COMMAND, "step5cmd");
 		registerService(context, myTaskFactory02, TaskFactory.class, stepFiveProp);
 		
+		
+		//CyApplicationManager applicationManager2
+		MyNodeShapeHandler shapeHandler = new MyNodeShapeHandler(applicationManager);
+		registerService(context,shapeHandler, RowsSetListener.class, new Properties());
+		
+		TestHandler testHandler = new TestHandler(this);
+		registerService(context,testHandler, AddedNodesListener.class, new Properties());
 		//Step 5_1 End
 
+		//CyActivator.CyApplicat
 		
 
 	}
